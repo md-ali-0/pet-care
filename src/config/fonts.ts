@@ -1,11 +1,6 @@
-import { Fira_Code as FontMono, Inter as FontSans } from "next/font/google";
+import { Jost } from "next/font/google";
 
-export const fontSans = FontSans({
+export const fontJost = Jost({
   subsets: ["latin"],
-  variable: "--font-sans",
-});
-
-export const fontMono = FontMono({
-  subsets: ["latin"],
-  variable: "--font-mono",
+  variable: "--font-jost",
 });
