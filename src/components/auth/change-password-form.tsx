@@ -1,7 +1,7 @@
 import { Button } from "@nextui-org/button";
 import { Input } from "@nextui-org/input";
 
-export default function ForgotPasswordForm() {
+export default function ChangePasswordForm() {
   return (
     <form className="flex flex-col gap-3">
       <div className="flex flex-col gap-2.5">
@@ -9,15 +9,15 @@ export default function ForgotPasswordForm() {
           isRequired
           className=""
           color="primary"
-          label="Email"
-          placeholder="Enter your email"
+          label="New Password"
+          placeholder="Enter your password"
           radius="sm"
-          type="email"
+          type="text"
           variant="underlined"
         />
       </div>
       <Button color="primary" type="submit" variant="shadow">
-        Send Reset Password Link
+        Change Password
       </Button>
     </form>
   );

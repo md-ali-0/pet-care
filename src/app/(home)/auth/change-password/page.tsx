@@ -1,9 +1,9 @@
 import { Card, CardBody, CardFooter, CardHeader } from "@nextui-org/card";
 import { Link } from "@nextui-org/link";
 
-import SigninForm from "@/components/auth/signin-form";
+import ChangePasswordForm from "@/components/auth/change-password-form";
 
-export default function SigninPage() {
+export default function ChangePasswordPage() {
   return (
     <div className="flex h-full w-full items-center justify-center">
       <Card
@@ -11,18 +11,18 @@ export default function SigninPage() {
         shadow="sm"
       >
         <CardHeader className="flex flex-col items-center">
-          <p className="text-xl font-medium">Welcome Back</p>
-          <p className="text-small text-default-500">
-            Log in to your account to continue
+          <p className="text-xl font-medium">Change Your Password </p>
+          <p className="text-small text-center text-default-500 pt-2.5">
+            Enter your new password below to reset it. .
           </p>
         </CardHeader>
         <CardBody>
-          <SigninForm />
+          <ChangePasswordForm />
         </CardBody>
         <CardFooter className="flex justify-center text-small">
-          Need to create an account?&nbsp;
-          <Link href="/signup" size="sm">
-            Sign Up
+          Remembered your password?&nbsp;
+          <Link href="/auth/signin" size="sm">
+            Sign In
           </Link>
         </CardFooter>
       </Card>

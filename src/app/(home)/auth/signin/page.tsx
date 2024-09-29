@@ -1,9 +1,9 @@
 import { Card, CardBody, CardFooter, CardHeader } from "@nextui-org/card";
 import { Link } from "@nextui-org/link";
 
-import SignupForm from "@/components/auth/signup-form";
+import SigninForm from "@/components/auth/signin-form";
 
-export default function SignupPage() {
+export default function SigninPage() {
   return (
     <div className="flex h-full w-full items-center justify-center">
       <Card
@@ -13,16 +13,16 @@ export default function SignupPage() {
         <CardHeader className="flex flex-col items-center">
           <p className="text-xl font-medium">Welcome Back</p>
           <p className="text-small text-default-500">
-            Create an account to get started
+            Log in to your account to continue
           </p>
         </CardHeader>
         <CardBody>
-          <SignupForm />
+          <SigninForm />
         </CardBody>
         <CardFooter className="flex justify-center text-small">
-          Already have an account? &nbsp;
-          <Link href="/signin" size="sm">
-            Sign In
+          Need to create an account?&nbsp;
+          <Link href="/auth/signup" size="sm">
+            Sign Up
           </Link>
         </CardFooter>
       </Card>

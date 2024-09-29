@@ -51,7 +51,7 @@ export default function SigninForm() {
       </div>
       <div className="flex items-center justify-between px-1 py-2">
         <Checkbox size="sm">Remember me</Checkbox>
-        <Link color="primary" href="/forgot-password" size="sm">
+        <Link color="primary" href="/auth/forgot-password" size="sm">
           Forgot password?
         </Link>
       </div>
