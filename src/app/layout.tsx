@@ -1,12 +1,14 @@
 import "@/styles/globals.css";
 import clsx from "clsx";
 import { Metadata, Viewport } from "next";
+import { Toaster } from "sonner";
 
 import { Providers } from "./providers";
 
 import { fontJost } from "@/config/fonts";
 import { siteConfig } from "@/config/site";
 import ReduxProvider from "@/provider/redux-provider";
+import { SessionProvider } from "@/provider/session-provider";
 
 export const metadata: Metadata = {
   title: {
@@ -46,9 +48,12 @@ export default function RootLayout({
             defaultTheme: "dark",
           }}
         >
-          <ReduxProvider>
-            <div className="relative flex flex-col h-screen">{children}</div>
-          </ReduxProvider>
+          <SessionProvider>
+            <ReduxProvider>
+              <div className="relative flex flex-col h-screen">{children}</div>
+            </ReduxProvider>
+          </SessionProvider>
+          <Toaster expand={false} richColors={true} />
         </Providers>
       </body>
     </html>

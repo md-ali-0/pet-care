@@ -1,13 +1,12 @@
 "use client";
 
-import { FC } from "react";
-import { VisuallyHidden } from "@react-aria/visually-hidden";
 import { SwitchProps, useSwitch } from "@nextui-org/switch";
-import { useTheme } from "next-themes";
 import { useIsSSR } from "@react-aria/ssr";
+import { VisuallyHidden } from "@react-aria/visually-hidden";
 import clsx from "clsx";
-
-import { SunFilledIcon, MoonFilledIcon } from "@/components/icons";
+import { useTheme } from "next-themes";
+import { FC } from "react";
+import { LuMoonStar, LuSunMoon } from "react-icons/lu";
 
 export interface ThemeSwitchProps {
   className?: string;
@@ -71,9 +70,9 @@ export const ThemeSwitch: FC<ThemeSwitchProps> = ({
         })}
       >
         {!isSelected || isSSR ? (
-          <SunFilledIcon size={22} />
+          <LuMoonStar className="text-default-700" size={20} />
         ) : (
-          <MoonFilledIcon size={22} />
+          <LuSunMoon className="text-default-700" size={20} />
         )}
       </div>
     </Component>

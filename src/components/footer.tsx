@@ -1,5 +1,5 @@
 import { Link } from "@nextui-org/link";
-import { FaFacebook, FaInstagram, FaYoutube } from "react-icons/fa";
+import { FaFacebookSquare, FaInstagram, FaYoutube } from "react-icons/fa";
 import { FaSquareXTwitter } from "react-icons/fa6";
 export default function Footer() {
   return (
@@ -46,19 +46,19 @@ export default function Footer() {
         <div className="flex justify-center gap-x-4">
           <Link isExternal href="#" title="facebook page">
             <span className="sr-only">Facebook</span>
-            <FaFacebook className="text-primary-500" size={20} />
+            <FaFacebookSquare className="text-primary-500" size={22} />
           </Link>
           <Link isExternal href="#" title="facebook page">
             <span className="sr-only">Instagram </span>
-            <FaInstagram className="text-pink-500" size={20} />
+            <FaInstagram className="text-pink-500" size={22} />
           </Link>
           <Link isExternal href="#" title="facebook page">
             <span className="sr-only">X</span>
-            <FaSquareXTwitter className="text-black" size={20} />
+            <FaSquareXTwitter className="text-default-900" size={22} />
           </Link>
           <Link isExternal href="#" title="facebook page">
             <span className="sr-only">Youtube </span>
-            <FaYoutube className="text-red-500" size={20} />
+            <FaYoutube className="text-red-500" size={22} />
           </Link>
         </div>
         <span
