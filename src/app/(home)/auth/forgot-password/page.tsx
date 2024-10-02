@@ -5,7 +5,7 @@ import ForgotPasswordForm from "@/components/auth/forgot-passoword-form";
 
 export default function ForgotPasswordPage() {
   return (
-    <div className="flex h-full w-full items-center justify-center">
+    <div className="flex h-full w-full items-center justify-center py-10">
       <Card
         className="flex w-full max-w-sm flex-col rounded-large md:p-3.5"
         shadow="sm"

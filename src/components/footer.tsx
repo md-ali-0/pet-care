@@ -4,7 +4,7 @@ import { FaSquareXTwitter } from "react-icons/fa6";
 export default function Footer() {
   return (
     <footer className="flex w-full flex-col">
-      <div className="mx-auto flex w-full max-w-7xl flex-col items-center justify-center px-6 py-12 lg:px-8">
+      <div className="mx-auto flex w-full max-w-7xl flex-col items-center justify-center px-6 py-5 lg:px-8">
         <div className="flex items-center justify-center">
           <svg fill="none" height={44} viewBox="0 0 32 32" width={44}>
             <path

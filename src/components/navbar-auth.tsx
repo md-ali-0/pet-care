@@ -10,21 +10,23 @@ import {
 } from "@nextui-org/dropdown";
 import { Link } from "@nextui-org/link";
 import { NavbarItem } from "@nextui-org/navbar";
+import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
-import { siteConfig } from "@/config/site";
 import { useSession } from "@/provider/session-provider";
 import { signout } from "@/utils/actions/auth";
 
 export default function NavbarAuth() {
   const { session, setIsLoading } = useSession();
-
+  const router = useRouter();
   const handleLogout = async () => {
     try {
       setIsLoading(true);
       await signout();
       setIsLoading(false);
+
       toast.success("Logout Successfully");
+      router.push("/");
     } catch (error) {
       throw error;
     }
@@ -42,7 +44,7 @@ export default function NavbarAuth() {
               color="primary"
               name={session?.name as string}
               size="sm"
-              src={`${siteConfig.host}/${session?.avatar}`}
+              src={session?.avatar as string}
             />
           </DropdownTrigger>
           <DropdownMenu aria-label="Profile Actions" variant="flat">
@@ -50,7 +52,9 @@ export default function NavbarAuth() {
               <p className="font-semibold">Signed in as</p>
               <p className="font-semibold">{session?.email}</p>
             </DropdownItem>
-            <DropdownItem key="settings">My Settings</DropdownItem>
+            <DropdownItem key="settings" as={Link} href="/my-account/profile">
+              My Profile
+            </DropdownItem>
             <DropdownItem key="team_settings">Team Settings</DropdownItem>
             <DropdownItem key="analytics">Analytics</DropdownItem>
             <DropdownItem key="system">System</DropdownItem>

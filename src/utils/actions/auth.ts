@@ -37,6 +37,7 @@ export async function signin(formData: FormValues) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(formData),
+      cache: "no-store",
     });
 
     const result = await res.json();
@@ -94,6 +95,7 @@ export async function signup(formData: FormValues) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(formData),
+      cache: "no-store",
     });
 
     const result = await res.json();
@@ -137,6 +139,7 @@ export async function forgotPassword(formData: FormValues) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(formData),
+      cache: "no-store",
     });
 
     const result = await res.json();
@@ -182,6 +185,7 @@ export async function resetPassword(formData: FormValues) {
         Authorization: formData.token as string,
       },
       body: JSON.stringify(formData),
+      cache: "no-store",
     });
 
     const result = await res.json();

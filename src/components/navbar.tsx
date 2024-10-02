@@ -9,6 +9,7 @@ import {
   Navbar as NextUINavbar,
 } from "@nextui-org/navbar";
 import NextLink from "next/link";
+import { GoPerson, GoProjectRoadmap } from "react-icons/go";
 
 import { Logo } from "./icons";
 import NavbarAuth from "./navbar-auth";
@@ -42,13 +43,19 @@ export default function Navbar() {
 
       <NavbarContent className="hidden sm:flex gap-4" justify="center">
         <NavbarItem>
-          <Link color="foreground" href="#">
-            Features
+          <Link className="flex gap-2" color="foreground" href="/">
+            <GoProjectRoadmap size={22} />
+            Feed
           </Link>
         </NavbarItem>
-        <NavbarItem isActive>
-          <Link aria-current="page" href="#">
-            Customers
+        <NavbarItem>
+          <Link
+            className="flex gap-2"
+            color="foreground"
+            href="/my-account/profile"
+          >
+            <GoPerson size={22} />
+            Profile
           </Link>
         </NavbarItem>
         <NavbarItem>
