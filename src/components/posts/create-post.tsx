@@ -115,7 +115,7 @@ export default function CreatePost() {
             readOnly
             color="primary"
             placeholder="What's on your mind?"
-            onClick={openModal} // Open modal when clicking the textarea
+            onClick={openModal}
           />
           <div className="flex justify-between mt-4">
             <Button
@@ -127,7 +127,7 @@ export default function CreatePost() {
             <Button
               startContent={<LuImage className="mr-2 text-green-500" />}
               variant="light"
-              onClick={openModal} // Trigger modal for image upload as well
+              onClick={openModal}
             >
               Photo/Video
             </Button>
@@ -143,8 +143,6 @@ export default function CreatePost() {
           </div>
         </CardBody>
       </Card>
-
-      {/* Modal for Rich Text Editor, Image Upload & Category Selection */}
       <Modal
         isOpen={isModalOpen}
         motionProps={{
