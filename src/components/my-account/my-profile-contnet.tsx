@@ -121,7 +121,7 @@ export default function MyProfileContnet() {
       <Tab key="About" title="About">
         <Card>
           <CardHeader>
-            <h3 className="text-xl font-medium">About Me</h3>
+            <h3 className="text-xl font-medium">About</h3>
           </CardHeader>
           <CardBody>
             <AboutProfile user={user as TUser} />

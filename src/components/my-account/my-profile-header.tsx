@@ -224,23 +224,15 @@ export default function MyProfileHeader() {
           </div>
         </div>
       </div>
-
-      <div className="flex justify-between items-center p-4 my-2.5">
-        <div>
-          <h1 className="text-default-900 text-2xl font-semibold">
-            {user?.name}
-          </h1>
-          <h3 className="text-default-900">
-            Followers: {user?.followers?.length}
-          </h3>
+      <div className="p-4">
+        <h1 className="text-default-900 text-2xl font-semibold">
+          {user?.name}
+        </h1>
+        <div className="flex items-center justify-center md:justify-start text-gray-600">
+          <span className="ml-2">{user?.followers?.length} Followers</span>
+          <span className="mx-2">•</span>
+          <span>{user?.following?.length} Following</span>
         </div>
-        {/* <div>
-          {user?.name == user?.name && (
-            <Button className="mt-2" color="primary" size="lg">
-              Follow
-            </Button>
-          )}
-        </div> */}
       </div>
 
       <Modal isOpen={isModalOpen}>
