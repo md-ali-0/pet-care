@@ -1,20 +1,20 @@
 import { baseApi } from "../../api/baseApi";
 
-import { TPost, TQueryParam, TResponseRedux } from "@/types";
+import { TComment, TQueryParam, TResponseRedux } from "@/types";
 
-const postApi = baseApi.injectEndpoints({
+const commentApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
-    createPost: builder.mutation({
+    createComment: builder.mutation({
       query: (data) => {
         return {
-          url: `/posts`,
+          url: `/comment`,
           method: "POST",
           body: data,
         };
       },
-      invalidatesTags: ["posts"],
+      invalidatesTags: ["comments", "posts"],
     }),
-    getAllPosts: builder.query({
+    getAllComments: builder.query({
       query: (args) => {
         const params = new URLSearchParams();
 
@@ -27,44 +27,46 @@ const postApi = baseApi.injectEndpoints({
         }
 
         return {
-          url: `/posts`,
+          url: `/comment`,
           params: params,
         };
       },
-      transformResponse: (response: TResponseRedux<TPost[]>) => {
+      transformResponse: (response: TResponseRedux<TComment[]>) => {
         return {
           data: response.data,
           meta: response.meta,
         };
       },
 
-      providesTags: ["posts"],
+      providesTags: ["comments"],
     }),
-    updatePost: builder.mutation({
+    updateComment: builder.mutation({
       query: (data) => {
+        console.log(data);
+
         return {
-          url: `/posts/${data.id}`,
-          method: "PATCH",
+          url: `/comment/${data.id}`,
+          method: "PUT",
           body: data.data,
         };
       },
-      invalidatesTags: ["posts"],
+      invalidatesTags: ["comments", "posts"],
     }),
-    deletePost: builder.mutation({
+    deleteComment: builder.mutation({
       query: (id) => {
         return {
-          url: `/posts/${id}`,
+          url: `/comment/${id}`,
           method: "DELETE",
         };
       },
-      invalidatesTags: ["users"],
+      invalidatesTags: ["comments", "posts"],
     }),
   }),
 });
 
 export const {
-  useCreatePostMutation,
-  useGetAllPostsQuery,
-  useDeletePostMutation,
-  useUpdatePostMutation,
-} = postApi;
+  useCreateCommentMutation,
+  useGetAllCommentsQuery,
+  useDeleteCommentMutation,
+  useUpdateCommentMutation,
+} = commentApi;

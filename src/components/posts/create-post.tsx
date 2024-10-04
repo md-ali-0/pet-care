@@ -17,17 +17,21 @@ import {
 } from "@nextui-org/modal";
 import { Radio, RadioGroup } from "@nextui-org/radio";
 import { SerializedError } from "@reduxjs/toolkit";
+import dynamic from "next/dynamic";
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { FiUpload } from "react-icons/fi";
-import { LuImage, LuPen, LuSmile, LuVideo, LuX } from "react-icons/lu";
-import ReactQuill from "react-quill";
+import { LuImage, LuPen, LuSmile, LuX } from "react-icons/lu";
 import "react-quill/dist/quill.snow.css";
 import { toast } from "sonner";
 
 import { ErrorResponse } from "@/types";
 
 export default function CreatePost() {
+  const ReactQuill = useMemo(
+    () => dynamic(() => import("react-quill"), { ssr: false }),
+    [],
+  );
   const [postContent, setPostContent] = useState("");
   const [title, setTitle] = useState<string>("");
   const [isPremium, setIsPremium] = useState(false);
@@ -105,7 +109,7 @@ export default function CreatePost() {
 
   return (
     <>
-      <Card className="mb-6">
+      <Card className="mb-6" radius="sm">
         <CardHeader className="flex items-center p-4">
           <LuPen className="text-blue-500 mr-3" />
           <h2 className="text-lg font-semibold">Create Post</h2>
@@ -115,27 +119,27 @@ export default function CreatePost() {
             readOnly
             color="primary"
             placeholder="What's on your mind?"
+            variant="bordered"
             onClick={openModal}
           />
           <div className="flex justify-between mt-4">
             <Button
-              startContent={<LuVideo className="mr-2 text-red-500" />}
-              variant="light"
-            >
-              Live Video
-            </Button>
-            <Button
-              startContent={<LuImage className="mr-2 text-green-500" />}
+              startContent={
+                <LuImage className="mr-2 text-green-500" size={20} />
+              }
               variant="light"
               onClick={openModal}
             >
-              Photo/Video
+              <span className=" hidden lg:block">Photo/Video</span>
             </Button>
             <Button
-              startContent={<LuSmile className="mr-2 text-orange-500" />}
+              startContent={
+                <LuSmile className="mr-2 text-orange-500" size={20} />
+              }
               variant="light"
+              onClick={openModal}
             >
-              Feeling/Activity
+              <span className=" hidden lg:block">Feeling/Activity</span>
             </Button>
             <Button color="primary" onClick={openModal}>
               Post
@@ -165,6 +169,7 @@ export default function CreatePost() {
             },
           },
         }}
+        scrollBehavior={"inside"}
         size="xl"
         onClose={closeModal}
         onOpenChange={closeModal}

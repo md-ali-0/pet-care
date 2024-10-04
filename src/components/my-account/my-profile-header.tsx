@@ -156,7 +156,7 @@ export default function MyProfileHeader() {
           alt="Cover Photo"
           className="absolute top-0 left-0 w-full h-full object-cover"
           height={315}
-          src={newCoverPhoto || coverPhoto || "/default-cover.jpg"}
+          src={(newCoverPhoto as string) || (coverPhoto as string)}
           width={850}
         />
         <div className="absolute top-4 md:top-64 right-4">

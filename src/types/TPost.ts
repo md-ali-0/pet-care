@@ -1,15 +1,19 @@
-export interface IPost {
+import { TUser } from "./TUser";
+
+export interface TPost {
   _id: string;
-  authorId: string;
+  author: TUser;
   title: string;
   content: string;
   category: "Tip" | "Story";
   imageUrls?: string[];
   isPremium: boolean;
-  createdAt: Date;
-  updatedAt: Date;
+  comments: any;
   voteCount: {
     upvotes: number;
     downvotes: number;
   };
+  commentCount: number;
+  createdAt: Date;
+  updatedAt: Date;
 }
