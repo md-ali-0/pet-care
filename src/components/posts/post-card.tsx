@@ -102,7 +102,7 @@ export default function PostCard({ post }: { post: TPost }) {
                   height="150"
                   src={post.imageUrls[3]}
                   width="150"
-                  onClick={openModal} // Open modal on click
+                  onClick={openModal}
                 />
                 <div
                   className="absolute inset-0 bg-black bg-opacity-50 cursor-pointer flex items-center justify-center rounded-lg"

@@ -8,6 +8,7 @@ import {
   DropdownTrigger,
 } from "@nextui-org/dropdown";
 import { Input } from "@nextui-org/input";
+import { Link } from "@nextui-org/link";
 import {
   Modal,
   ModalBody,
@@ -274,37 +275,69 @@ export default function PostDetailsModal({
         </ModalBody>
 
         <ModalFooter className="block py-1.5">
-          <div className="flex items-center mt-4 gap-2">
-            <div>
-              {isLoading ? (
-                <Skeleton className="size-10 rounded-full mr-4"> </Skeleton>
-              ) : (
-                <Image
-                  alt={session?.name as string}
-                  className="rounded-full size-10 mr-4"
-                  height="50"
-                  src={session?.avatar as string}
-                  width="50"
-                />
-              )}
+          {session?.user ? (
+            <div className="flex items-center mt-4 gap-2">
+              <div>
+                {isLoading ? (
+                  <Skeleton className="size-10 rounded-full mr-4"> </Skeleton>
+                ) : (
+                  session?.user && (
+                    <Image
+                      alt={session?.name as string}
+                      className="rounded-full size-10 mr-4"
+                      height="50"
+                      src={session?.avatar as string}
+                      width="50"
+                    />
+                  )
+                )}
+              </div>
+              <Input
+                isClearable
+                label="Write a comment.."
+                type="text"
+                value={comment}
+                variant="flat"
+                onChange={(e) => setComment(e.currentTarget.value)}
+                onClear={() => {
+                  setComment("");
+                  setEditingCommentId(null);
+                }}
+              />
+              <Button isIconOnly color="primary" size="lg" onClick={onSubmit}>
+                {editingCommentId ? <LuSend /> : <LuSendHorizonal />}{" "}
+                {/* Show 'Update' if editing */}
+              </Button>
             </div>
-            <Input
-              isClearable
-              label="Write a comment.."
-              type="text"
-              value={comment}
-              variant="flat"
-              onChange={(e) => setComment(e.currentTarget.value)}
-              onClear={() => {
-                setComment("");
-                setEditingCommentId(null);
-              }}
-            />
-            <Button isIconOnly color="primary" size="lg" onClick={onSubmit}>
-              {editingCommentId ? <LuSend /> : <LuSendHorizonal />}{" "}
-              {/* Show 'Update' if editing */}
-            </Button>
-          </div>
+          ) : (
+            <div className="py-2.5 text-center">
+              <h3 className="text-danger-500 font-semibold">
+                Login or Sign up To Make Comment !
+              </h3>
+              <div className="flex justify-center items-center gap-2 mt-2">
+                <Button
+                  as={Link}
+                  color="primary"
+                  href="/auth/signin"
+                  size="sm"
+                  variant="flat"
+                >
+                  Sign In
+                </Button>
+                <span className="text-sm text-default-500">Or</span>
+                <Button
+                  as={Link}
+                  className="ring-0 outline-none"
+                  color="primary"
+                  href="/auth/signup"
+                  size="sm"
+                  variant="shadow"
+                >
+                  Sign Up
+                </Button>
+              </div>
+            </div>
+          )}
         </ModalFooter>
       </ModalContent>
     </Modal>

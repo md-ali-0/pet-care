@@ -8,6 +8,7 @@ import { Button } from "@nextui-org/button";
 import { Card, CardBody, CardHeader } from "@nextui-org/card";
 import { Checkbox } from "@nextui-org/checkbox";
 import { Input, Textarea } from "@nextui-org/input";
+import { Link } from "@nextui-org/link";
 import {
   Modal,
   ModalBody,
@@ -25,6 +26,7 @@ import { LuImage, LuPen, LuSmile, LuX } from "react-icons/lu";
 import "react-quill/dist/quill.snow.css";
 import { toast } from "sonner";
 
+import { useSession } from "@/provider/session-provider";
 import { ErrorResponse } from "@/types";
 
 export default function CreatePost() {
@@ -39,6 +41,8 @@ export default function CreatePost() {
   const [images, setImages] = useState<File[]>([]);
   const [imagePreviews, setImagePreviews] = useState<string[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const { session } = useSession();
 
   const [createPost, { isSuccess, isError, error }] = useCreatePostMutation();
 
@@ -104,6 +108,9 @@ export default function CreatePost() {
       formData.append(`images`, image);
     });
     await createPost(formData);
+    setImages([]);
+    setImagePreviews([]);
+    setPostContent("");
     closeModal();
   };
 
@@ -149,142 +156,169 @@ export default function CreatePost() {
       </Card>
       <Modal
         isOpen={isModalOpen}
-        motionProps={{
-          variants: {
-            enter: {
-              y: 0,
-              opacity: 1,
-              transition: {
-                duration: 0.3,
-                ease: "easeOut",
-              },
-            },
-            exit: {
-              y: -20,
-              opacity: 0,
-              transition: {
-                duration: 0.2,
-                ease: "easeIn",
-              },
-            },
-          },
-        }}
         scrollBehavior={"inside"}
         size="xl"
         onClose={closeModal}
         onOpenChange={closeModal}
       >
         <ModalContent>
-          <ModalHeader>
-            <h3>Create Post</h3>
-          </ModalHeader>
-          <ModalBody>
-            <div className="space-y-4">
-              {/* Rich Text Editor */}
-              <Input
-                isClearable
-                color="primary"
-                name="title"
-                placeholder="Enter Post Title"
-                radius="none"
-                variant="underlined"
-                onValueChange={setTitle}
-              />
-              <ReactQuill
-                placeholder="Write your story or tip here..."
-                theme="snow"
-                value={postContent}
-                onChange={setPostContent}
-              />
-              {/* Category Selection */}
-              <div className="flex justify-between">
-                <RadioGroup
-                  color="primary"
-                  orientation="horizontal"
-                  size="sm"
-                  onValueChange={setSelectedCategory}
-                >
-                  <Radio value="Tip">Tip</Radio>
-                  <Radio value="Story">Story</Radio>
-                </RadioGroup>
-                <Checkbox
-                  isSelected={isPremium}
-                  radius="full"
-                  size="sm"
-                  onValueChange={setIsPremium}
-                >
-                  Premium
-                </Checkbox>
-              </div>
-
-              {/* Image Upload */}
-              <div>
-                <input
-                  ref={fileRef}
-                  multiple
-                  accept="image/*"
-                  className="hidden"
-                  id="image-upload"
-                  type="file"
-                  onChange={handleImageChange}
-                />
-                <div className="flex flex-wrap items-center gap-3">
-                  {/* Image Previews */}
-                  {imagePreviews.length > 0 && (
-                    <div className="flex flex-wrap gap-3 mt-4">
-                      {imagePreviews.map((preview, index) => (
-                        <div key={index} className="relative">
-                          <Image
-                            alt={`Selected ${index}`}
-                            className="size-20 object-cover rounded-lg shadow-md"
-                            height={80}
-                            src={preview}
-                            width={80}
-                          />
-                          <button
-                            className="absolute top-0.5 right-0.5 bg-white p-0.5 rounded-full shadow-sm"
-                            onClick={() => removeImage(index)}
-                          >
-                            <LuX className="text-default-900" />
-                          </button>
-                        </div>
-                      ))}
-                    </div>
-                  )}
-                  <div
-                    className={`${
-                      imagePreviews.length > 0 ? "size-20 mt-4" : "py-6 w-full"
-                    } flex items-center justify-center flex-col border-[#e5eaf2] border rounded-md cursor-pointer`}
-                    onClick={() => fileRef.current && fileRef.current.click()}
-                  >
-                    <FiUpload
-                      className="text-[#777777]"
-                      size={imagePreviews.length > 0 ? 15 : 25}
-                    />
-                    <p
-                      className={`text-[#777777] ${
-                        imagePreviews.length > 0
-                          ? "text-sm text-center"
-                          : "text-lg"
-                      }`}
+          {session?.user ? (
+            <>
+              <ModalHeader>
+                <h3>Create Post</h3>
+              </ModalHeader>
+              <ModalBody>
+                <div className="space-y-4">
+                  {/* Rich Text Editor */}
+                  <Input
+                    isClearable
+                    color="primary"
+                    name="title"
+                    placeholder="Enter Post Title"
+                    radius="none"
+                    variant="underlined"
+                    onValueChange={setTitle}
+                  />
+                  <ReactQuill
+                    placeholder="Write your story or tip here..."
+                    theme="snow"
+                    value={postContent}
+                    onChange={setPostContent}
+                  />
+                  {/* Category Selection */}
+                  <div className="flex justify-between">
+                    <RadioGroup
+                      color="primary"
+                      orientation="horizontal"
+                      size="sm"
+                      onValueChange={setSelectedCategory}
                     >
-                      {imagePreviews.length > 0
-                        ? "Add more files"
-                        : "Browse to upload your file"}
-                    </p>
+                      <Radio value="Tip">Tip</Radio>
+                      <Radio value="Story">Story</Radio>
+                    </RadioGroup>
+                    <Checkbox
+                      isSelected={isPremium}
+                      radius="full"
+                      size="sm"
+                      onValueChange={setIsPremium}
+                    >
+                      Premium
+                    </Checkbox>
+                  </div>
+
+                  {/* Image Upload */}
+                  <div>
+                    <input
+                      ref={fileRef}
+                      multiple
+                      accept="image/*"
+                      className="hidden"
+                      id="image-upload"
+                      type="file"
+                      onChange={handleImageChange}
+                    />
+                    <div className="flex flex-wrap items-center gap-3">
+                      {/* Image Previews */}
+                      {imagePreviews.length > 0 && (
+                        <div className="flex flex-wrap gap-3 mt-4">
+                          {imagePreviews.map((preview, index) => (
+                            <div key={index} className="relative">
+                              <Image
+                                alt={`Selected ${index}`}
+                                className="size-20 object-cover rounded-lg shadow-md"
+                                height={80}
+                                src={preview}
+                                width={80}
+                              />
+                              <button
+                                className="absolute top-0.5 right-0.5 bg-white p-0.5 rounded-full shadow-sm"
+                                onClick={() => removeImage(index)}
+                              >
+                                <LuX className="text-default-900" />
+                              </button>
+                            </div>
+                          ))}
+                        </div>
+                      )}
+                      <div
+                        className={`${
+                          imagePreviews.length > 0
+                            ? "size-20 mt-4"
+                            : "py-6 w-full"
+                        } flex items-center justify-center flex-col border-[#e5eaf2] border rounded-md cursor-pointer`}
+                        onClick={() =>
+                          fileRef.current && fileRef.current.click()
+                        }
+                      >
+                        <FiUpload
+                          className="text-[#777777]"
+                          size={imagePreviews.length > 0 ? 15 : 25}
+                        />
+                        <p
+                          className={`text-[#777777] ${
+                            imagePreviews.length > 0
+                              ? "text-sm text-center"
+                              : "text-lg"
+                          }`}
+                        >
+                          {imagePreviews.length > 0
+                            ? "Add more files"
+                            : "Browse to upload your file"}
+                        </p>
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </div>
-          </ModalBody>
-          <ModalFooter>
-            <Button color="danger" variant="shadow" onClick={closeModal}>
-              Cancel
-            </Button>
-            <Button color="primary" variant="shadow" onClick={handlePostSubmit}>
-              Post
-            </Button>
-          </ModalFooter>
+              </ModalBody>
+              <ModalFooter>
+                <Button color="danger" variant="shadow" onClick={closeModal}>
+                  Cancel
+                </Button>
+                <Button
+                  color="primary"
+                  variant="shadow"
+                  onClick={handlePostSubmit}
+                >
+                  Post
+                </Button>
+              </ModalFooter>
+            </>
+          ) : (
+            <>
+              <ModalHeader>
+                <h3>Create Post</h3>
+              </ModalHeader>
+              <ModalBody>
+                <div className="flex justify-center items-center flex-col py-4">
+                  <p className="text-sm text-center text-default-500 mb-2">
+                    Join our community to share your tips and stories!
+                    <br />
+                    Log in or sign up to get started.
+                  </p>
+                </div>
+              </ModalBody>
+              <ModalFooter className="flex justify-center items-center">
+                <Button
+                  as={Link}
+                  color="primary"
+                  href="/auth/signin"
+                  variant="flat"
+                >
+                  Sign In
+                </Button>
+                <span>Or</span>
+                <Button
+                  as={Link}
+                  className="ring-0 outline-none"
+                  color="primary"
+                  href="/auth/signup"
+                  variant="shadow"
+                >
+                  Sign Up
+                </Button>
+              </ModalFooter>
+            </>
+          )}
         </ModalContent>
       </Modal>
     </>
