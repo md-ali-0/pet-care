@@ -1,9 +1,9 @@
 import { baseApi } from "../../api/baseApi";
 
-import { TResponseRedux } from "@/types";
+import { TQueryParam, TResponseRedux } from "@/types";
 import { TUser } from "@/types/TUser";
 
-const userApi = baseApi.injectEndpoints({
+export const userApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     getMe: builder.query({
       query: () => {
@@ -17,9 +17,20 @@ const userApi = baseApi.injectEndpoints({
       providesTags: ["userData"],
     }),
     getAllUsers: builder.query({
-      query: () => {
+      query: (args) => {
+        const params = new URLSearchParams();
+
+        if (args) {
+          args.forEach((item: TQueryParam) => {
+            if (item.value !== undefined) {
+              params.append(item.name, item.value as string);
+            }
+          });
+        }
+
         return {
-          url: `/users/`,
+          url: `/users`,
+          params: params,
         };
       },
       transformResponse: (response: TResponseRedux<TUser[]>) => {
@@ -60,6 +71,26 @@ const userApi = baseApi.injectEndpoints({
       },
       invalidatesTags: ["userData"],
     }),
+    follow: builder.mutation({
+      query: (followingId) => {
+        return {
+          url: `/users/follow`,
+          method: "POST",
+          body: followingId,
+        };
+      },
+      invalidatesTags: ["users", "userData"],
+    }),
+    unfollow: builder.mutation({
+      query: (followingId) => {
+        return {
+          url: `/users/unfollow`,
+          method: "POST",
+          body: followingId,
+        };
+      },
+      invalidatesTags: ["users", "userData"],
+    }),
   }),
 });
 
@@ -69,4 +100,6 @@ export const {
   useDeleteUserMutation,
   useUpdateProfileMutation,
   useUpdateUserMutation,
+  useFollowMutation,
+  useUnfollowMutation,
 } = userApi;

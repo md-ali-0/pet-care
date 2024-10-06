@@ -1,6 +1,5 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
-import { Button } from "@nextui-org/button";
 import { Card, CardBody, CardFooter } from "@nextui-org/card";
 import {
   Dropdown,
@@ -99,7 +98,7 @@ export default function PostCard({ post }: { post: TPost }) {
                 <h2 className="font-semibold text-base md:text-lg">
                   {post?.author?.name}
                 </h2>
-                {session?.email !== post.author.email && (
+                {/* {session?.email !== post.author.email && (
                   <Button
                     className="hidden md:block ml-2"
                     color="primary"
@@ -108,7 +107,7 @@ export default function PostCard({ post }: { post: TPost }) {
                   >
                     Follow
                   </Button>
-                )}
+                )} */}
               </div>
               <p className="text-default-500 text-sm">
                 {formatDistanceToNow(new Date(post?.createdAt), {

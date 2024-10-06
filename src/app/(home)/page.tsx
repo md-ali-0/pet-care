@@ -1,5 +1,4 @@
 import { Card } from "@nextui-org/card";
-import Image from "next/image";
 import {
   LuBadge,
   LuGlobe,
@@ -9,6 +8,7 @@ import {
   LuUser2,
 } from "react-icons/lu";
 
+import NewUsers from "@/components/people/new-users";
 import CreatePost from "@/components/posts/create-post";
 import LatestPosts from "@/components/posts/latest-posts";
 
@@ -64,81 +64,7 @@ export default function Home() {
       {/* <!-- Friend Requests --> */}
 
       <div className="w-full md:col-span-4 lg:col-span-3  hidden md:block">
-        <Card className="p-4 sticky top-20" radius="sm">
-          <div className="flex justify-between items-center mb-4">
-            <h2 className="text-lg font-semibold">Friend Request</h2>
-            <span className="text-blue-500">See all</span>
-          </div>
-          <div className="mb-4">
-            <div className="flex items-center mb-2">
-              <Image
-                alt="Friend request profile picture"
-                className="rounded-full mr-3"
-                height="40"
-                src="https://storage.googleapis.com/a1aa/image/h9uV2KSd2eSjdKehSBku73rMaowzKmLOUmRsZfG3cyBM1kFnA.jpg"
-                width="40"
-              />
-              <div>
-                <h3 className="font-semibold">Anthony Daugloi</h3>
-                <span className="text-gray-500 text-sm">12 mutual friends</span>
-              </div>
-            </div>
-            <div className="flex justify-between">
-              <button className="bg-blue-500 text-white px-4 py-1 rounded-lg">
-                Confirm
-              </button>
-              <button className="bg-gray-200 text-gray-700 px-4 py-1 rounded-lg">
-                Delete
-              </button>
-            </div>
-          </div>
-          <div className="mb-4">
-            <div className="flex items-center mb-2">
-              <Image
-                alt="Friend request profile picture"
-                className="rounded-full mr-3"
-                height="40"
-                src="https://storage.googleapis.com/a1aa/image/h9uV2KSd2eSjdKehSBku73rMaowzKmLOUmRsZfG3cyBM1kFnA.jpg"
-                width="40"
-              />
-              <div>
-                <h3 className="font-semibold">Mohannad Zitoun</h3>
-                <span className="text-gray-500 text-sm">12 mutual friends</span>
-              </div>
-            </div>
-            <div className="flex justify-between">
-              <button className="bg-blue-500 text-white px-4 py-1 rounded-lg">
-                Confirm
-              </button>
-              <button className="bg-gray-200 text-gray-700 px-4 py-1 rounded-lg">
-                Delete
-              </button>
-            </div>
-          </div>
-          <div className="mb-4">
-            <div className="flex items-center mb-2">
-              <Image
-                alt="Friend request profile picture"
-                className="rounded-full mr-3"
-                height="40"
-                src="https://storage.googleapis.com/a1aa/image/h9uV2KSd2eSjdKehSBku73rMaowzKmLOUmRsZfG3cyBM1kFnA.jpg"
-                width="40"
-              />
-              <div>
-                <h3 className="font-semibold">Mohannad Zitoun</h3>
-                <span className="text-gray-500 text-sm">12 mutual friends</span>
-              </div>
-            </div>
-            <div className="flex justify-between">
-              <button className="bg-blue-500 text-white px-4 py-1 rounded-lg">
-                Confirm
-              </button>
-              <button className="bg-gray-200 text-gray-700 px-4 py-1 rounded-lg">
-                Delete
-              </button>
-            </div>
-          </div>
-        </Card>
+        <NewUsers />
       </div>
     </div>
   );
