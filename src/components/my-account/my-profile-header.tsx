@@ -205,7 +205,7 @@ export default function MyProfileHeader() {
               alt="Profile Picture"
               className="rounded-full size-24 object-cover object-top"
               height={96}
-              src={newProfilePic || profilePic || "/default-avatar.jpg"}
+              src={(newProfilePic as string) || (profilePic as string)}
               width={96}
             />
             <button

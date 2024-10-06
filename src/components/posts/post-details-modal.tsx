@@ -91,7 +91,9 @@ export default function PostDetailsModal({
 
   useEffect(() => {
     if (isDeleteCommentError) {
-      const errorResponse = error as ErrorResponse | SerializedError;
+      const errorResponse = deleteCommenterror as
+        | ErrorResponse
+        | SerializedError;
       const errorMessage =
         (errorResponse as ErrorResponse)?.data?.message ||
         "Something Went Wrong";
@@ -104,7 +106,9 @@ export default function PostDetailsModal({
 
   useEffect(() => {
     if (isUpdateCommentError) {
-      const errorResponse = error as ErrorResponse | SerializedError;
+      const errorResponse = updateCommenterror as
+        | ErrorResponse
+        | SerializedError;
       const errorMessage =
         (errorResponse as ErrorResponse)?.data?.message ||
         "Something Went Wrong";

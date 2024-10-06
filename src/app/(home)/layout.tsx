@@ -9,7 +9,7 @@ export default function HomeLayout({
   return (
     <>
       <Navbar />
-      <main className="container mx-auto max-w-7xl pt-3.5 px-6 flex-grow mt-16">
+      <main className="container mx-auto max-w-7xl pt-3.5 px-6 flex-grow mt-[68px]">
         {children}
       </main>
       <Footer />

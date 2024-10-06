@@ -44,8 +44,8 @@ const postApi = baseApi.injectEndpoints({
       query: (data) => {
         return {
           url: `/posts/${data.id}`,
-          method: "PATCH",
-          body: data.data,
+          method: "PUT",
+          body: data.formData,
         };
       },
       invalidatesTags: ["posts"],
@@ -57,7 +57,7 @@ const postApi = baseApi.injectEndpoints({
           method: "DELETE",
         };
       },
-      invalidatesTags: ["users"],
+      invalidatesTags: ["posts"],
     }),
   }),
 });
