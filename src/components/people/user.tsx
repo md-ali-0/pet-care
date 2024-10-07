@@ -1,11 +1,12 @@
 import { Button } from "@nextui-org/button";
+import { Link } from "@nextui-org/link";
 import Image from "next/image";
 import { useState } from "react";
 import { toast } from "sonner";
 
 import {
-    useFollowMutation,
-    useUnfollowMutation,
+  useFollowMutation,
+  useUnfollowMutation,
 } from "@/redux/features/user/userApi";
 import { TUser } from "@/types/TUser";
 
@@ -48,7 +49,9 @@ export default function User({ user, me }: UserProps) {
           width="40"
         />
         <div>
-          <h3 className="font-semibold">{user.name}</h3>
+          <Link className="block" href={`/profile?id=${user._id}`}>
+            <h3 className="font-semibold">{user.name}</h3>
+          </Link>
           <span className="text-gray-500 text-sm">
             {user.followers.length || 0} followers
           </span>

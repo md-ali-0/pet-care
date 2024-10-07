@@ -1,4 +1,8 @@
+"use client";
+
 import { Card } from "@nextui-org/card";
+import { Input } from "@nextui-org/input";
+import { useState } from "react";
 import {
   LuBadge,
   LuGlobe,
@@ -13,10 +17,24 @@ import CreatePost from "@/components/posts/create-post";
 import LatestPosts from "@/components/posts/latest-posts";
 
 export default function Home() {
+  const [search, setSearch] = useState("");
+
   return (
     <div className="grid grid-cols-1 md:grid-cols-12 gap-5">
       {/* <!-- Sidebar --> */}
-      <div className="w-full lg:col-span-3 hidden lg:block">
+      <div className="w-full lg:col-span-3 hidden lg:block space-y-5">
+        <div>
+          <Input
+            isClearable
+            color="primary"
+            label="Search ..."
+            size="sm"
+            type="email"
+            value={search}
+            variant={"bordered"}
+            onValueChange={setSearch}
+          />
+        </div>
         <Card className="p-4 sticky top-20" radius="sm">
           <div className="mb-6">
             <h2 className="text-lg font-semibold mb-4">New Feeds</h2>
@@ -59,7 +77,7 @@ export default function Home() {
         {/* <!-- Create Post --> */}
         <CreatePost />
         {/* <!-- Post --> */}
-        <LatestPosts />
+        <LatestPosts search={search} />
       </div>
       {/* <!-- Friend Requests --> */}
 

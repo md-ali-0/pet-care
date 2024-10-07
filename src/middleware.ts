@@ -7,7 +7,7 @@ import { TSession } from "@/types";
 
 const roleBasedAccess: { [key: string]: string[] } = {
   "/dashboard": ["admin"],
-  "/my-account": ["user", "admin"],
+  "/user": ["user"],
 };
 
 export async function middleware(req: NextRequest) {
@@ -60,5 +60,5 @@ export async function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/dashboard/:path*", "/my-account/:path*", "/auth/:path*"],
+  matcher: ["/dashboard/:path*", "/user/:path*", "/auth/:path*"],
 };

@@ -25,12 +25,12 @@ export default function Navbar() {
     { name: "Feed", icon: AiOutlineHome, path: "/" },
     { name: "Tips", icon: FiActivity, path: "/?category=Tip" },
     { name: "Stories", icon: LuPlay, path: "/?category=Story" },
-    { name: "Profile", icon: AiOutlineUser, path: "/my-account/profile" },
+    { name: "Profile", icon: AiOutlineUser, path: "/user/profile" },
   ];
 
   const mobileMenuItems = [
     { name: "Home", icon: AiOutlineHome, path: "/" },
-    { name: "Profile", icon: AiOutlineUser, path: "/my-account/profile" },
+    { name: "Profile", icon: AiOutlineUser, path: "/user/profile" },
     { name: "Activity", icon: FiActivity, path: "/activity" },
     { name: "Settings", icon: AiOutlineSetting, path: "/settings" },
     { name: "Log Out", icon: FiLogOut, path: "/logout" },

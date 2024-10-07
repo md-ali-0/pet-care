@@ -36,6 +36,38 @@ export async function getProfile(id: string) {
   }
 }
 
+export async function getUsersPosts(id: string) {
+  try {
+    const res = await fetch(`${siteConfig.host}/api/posts/${id}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      cache: "no-store",
+    });
+
+    const result = await res.json();
+
+    if (!result?.success) {
+      return {
+        success: false,
+        errors: result?.message || "Login failed",
+      };
+    }
+
+    return {
+      success: true,
+      data: result.data,
+    };
+  } catch (error) {
+    // Handle any network or unexpected errors
+    return {
+      success: false,
+      errors: "Something went wrong. Please try again.",
+    };
+  }
+}
+
 export async function getMe() {
   try {
     const token = cookies().get("session")?.value;

@@ -40,6 +40,21 @@ const postApi = baseApi.injectEndpoints({
 
       providesTags: ["posts"],
     }),
+    getPostsByUser: builder.query({
+      query: (id) => {
+        return {
+          url: `/posts/${id}`,
+          method: "POST",
+        };
+      },
+      transformResponse: (response: TResponseRedux<TPost[]>) => {
+        return {
+          data: response.data,
+          meta: response.meta,
+        };
+      },
+    }),
+
     updatePost: builder.mutation({
       query: (data) => {
         return {
@@ -67,4 +82,5 @@ export const {
   useGetAllPostsQuery,
   useDeletePostMutation,
   useUpdatePostMutation,
+  useGetPostsByUserQuery,
 } = postApi;

@@ -42,8 +42,6 @@ const commentApi = baseApi.injectEndpoints({
     }),
     updateComment: builder.mutation({
       query: (data) => {
-        console.log(data);
-
         return {
           url: `/comment/${data.id}`,
           method: "PUT",

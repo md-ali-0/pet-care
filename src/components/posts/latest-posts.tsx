@@ -9,11 +9,15 @@ import PostCard from "./post-card";
 import { useGetAllPostsQuery } from "@/redux/features/posts/postApi";
 import { ErrorResponse } from "@/types";
 
-export default function LatestPosts() {
+export default function LatestPosts({ search }: { search: string }) {
   const { data, isSuccess, isError, error } = useGetAllPostsQuery([
     {
       name: "sort",
       value: "-createdAt",
+    },
+    {
+      name: "searchTerm",
+      value: search,
     },
   ]);
 

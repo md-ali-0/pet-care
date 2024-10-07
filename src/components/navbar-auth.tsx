@@ -52,7 +52,7 @@ export default function NavbarAuth() {
               <p className="font-semibold">Signed in as</p>
               <p className="font-semibold">{session?.email}</p>
             </DropdownItem>
-            <DropdownItem key="settings" as={Link} href="/my-account/profile">
+            <DropdownItem key="settings" as={Link} href="/user/profile">
               My Profile
             </DropdownItem>
             <DropdownItem key="team_settings">Team Settings</DropdownItem>

@@ -1,3 +1,5 @@
+import { TPost } from "./TPost";
+
 import { user_role, user_status } from "@/constant/user.constant";
 
 export type TUser = {
@@ -11,10 +13,13 @@ export type TUser = {
   phone?: string;
   address?: string;
   avatar?: string;
+  birthdate?: Date;
   cover?: string;
   followers: string[];
   following: string[];
-  posts: string[];
+  posts: TPost[];
+  isPremium: boolean;
+  premiumExpireDate: Date;
   bio?: string;
   createdAt?: Date;
   updatedAt?: Date;
