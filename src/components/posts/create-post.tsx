@@ -27,6 +27,7 @@ import "react-quill/dist/quill.snow.css";
 import { toast } from "sonner";
 
 import { useSession } from "@/provider/session-provider";
+import { useGetMeQuery } from "@/redux/features/user/userApi";
 import { ErrorResponse } from "@/types";
 
 export default function CreatePost() {
@@ -41,6 +42,8 @@ export default function CreatePost() {
   const [images, setImages] = useState<File[]>([]);
   const [imagePreviews, setImagePreviews] = useState<string[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const {data: userData} = useGetMeQuery(undefined)
 
   const { session } = useSession();
 
@@ -196,14 +199,17 @@ export default function CreatePost() {
                       <Radio value="Tip">Tip</Radio>
                       <Radio value="Story">Story</Radio>
                     </RadioGroup>
-                    <Checkbox
+                    {
+                      userData && userData ? <Checkbox
                       isSelected={isPremium}
                       radius="full"
                       size="sm"
                       onValueChange={setIsPremium}
                     >
                       Premium
-                    </Checkbox>
+                    </Checkbox> : null
+                    }
+                    
                   </div>
 
                   {/* Image Upload */}

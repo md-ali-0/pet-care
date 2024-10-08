@@ -13,7 +13,7 @@ const roleBasedAccess: { [key: string]: string[] } = {
 export async function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
 
-  const cookie = req.cookies.get("session")?.value;
+  const cookie = req.cookies.get("accessToken")?.value;
 
   let session: TSession | undefined = {
     name: null,

@@ -3,6 +3,7 @@
 import { jwtVerify } from "jose";
 import { cookies } from "next/headers";
 
+import { siteConfig } from "@/config/site";
 import { TSession } from "@/types";
 import "server-only";
 
@@ -22,7 +23,7 @@ export async function decrypt(session: string | undefined = "") {
 }
 
 export async function getSession(): Promise<TSession> {
-  const cookie = cookies().get("session")?.value;
+  const cookie = cookies().get("accessToken")?.value;
 
   if (cookie) {
     const session = await decrypt(cookie);
@@ -51,4 +52,52 @@ export async function getSession(): Promise<TSession> {
     role: "guest",
     status: "guest",
   };
+}
+
+
+export async function updateSession() {
+
+  try {
+    const res = await fetch(`${siteConfig.host}/api/auth/refresh-token`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Cookie : `refreshToken=${cookies().get('refreshToken')}`
+      },
+      cache: "no-store",
+    });
+
+    const result = await res.json();
+
+    if (!result?.success) {
+      return {
+        success: false,
+        errors: result?.message || "Login failed",
+      };
+    }
+
+    const expiresAt = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000);
+
+    if (result?.success)
+      cookies().set("accessToken", result?.data?.accessToken, {
+        httpOnly: true,
+        secure: true,
+        path: "/",
+        sameSite: "strict",
+        expires: expiresAt,
+      });
+
+    // Return success response
+    return {
+      success: true,
+      data: result.data,
+    };
+  } catch (error) {
+    // Handle any network or unexpected errors
+    return {
+      success: false,
+      errors: "Something went wrong. Please try again.",
+    };
+  }
+
 }

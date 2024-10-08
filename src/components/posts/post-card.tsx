@@ -17,14 +17,13 @@ import { FaComment, FaThumbsDown, FaThumbsUp } from "react-icons/fa";
 import { LuMoreHorizontal } from "react-icons/lu";
 import { toast } from "sonner";
 
-import Alert from "../ui/alert";
-import { ShareModal } from "../ui/share-modal";
 
 import EditPostModal from "./edit-post";
 import PostDetailsModal from "./post-details-modal";
 
 import { useSession } from "@/provider/session-provider";
 import { useDeletePostMutation } from "@/redux/features/posts/postApi";
+import { useGetMeQuery } from "@/redux/features/user/userApi";
 import {
   useDownvoteMutation,
   useUpvoteMutation,
@@ -32,6 +31,7 @@ import {
 import { ErrorResponse, TPost } from "@/types";
 
 export default function PostCard({ post }: { post: TPost }) {
+  const {data: userData} = useGetMeQuery(undefined)
   const { session } = useSession();
   const [showMore, setShowMore] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -83,9 +83,24 @@ export default function PostCard({ post }: { post: TPost }) {
     await downvote({ post: post._id });
   };
 
+  console.log(userData);
+  
+
   return (
-    <>
-      <Card className="p-3 md:p-4" radius="sm">
+    <div className="relative">
+      {/* If the post is premium, apply blur effect */}
+      {!userData?.isPremium  && post.isPremium ? (
+        <div className="absolute inset-0 bg-black rounded-xl bg-opacity-50 flex items-center justify-center z-10">
+          <div className="text-center text-white space-y-2">
+            <p className="text-xl">This post is for Premium members only.</p>
+            <button className="px-4 py-2 bg-yellow-500 text-white rounded-lg hover:bg-yellow-600">
+              Become a Premium Member
+            </button>
+          </div>
+        </div>
+      ): null}
+
+      <Card className={`p-3 md:p-4 ${!userData?.isPremium  && post.isPremium ? "blur-sm" : ""}`} radius="sm">
         <CardBody>
           <div className="flex items-center mb-4">
             <Image
@@ -100,16 +115,6 @@ export default function PostCard({ post }: { post: TPost }) {
                 <h2 className="font-semibold text-base md:text-lg">
                   {post?.author?.name}
                 </h2>
-                {/* {session?.email !== post.author.email && (
-                  <Button
-                    className="hidden md:block ml-2"
-                    color="primary"
-                    size="sm"
-                    variant="flat"
-                  >
-                    Follow
-                  </Button>
-                )} */}
               </div>
               <p className="text-default-500 text-sm">
                 {formatDistanceToNow(new Date(post?.createdAt), {
@@ -139,7 +144,7 @@ export default function PostCard({ post }: { post: TPost }) {
                     key="delete"
                     className="py-1 px-2 text-danger"
                     color="danger"
-                    onClick={() => setVisible(true)}
+                    onClick={handleDeletePost}
                   >
                     Delete
                   </DropdownItem>
@@ -242,25 +247,16 @@ export default function PostCard({ post }: { post: TPost }) {
               <FaComment />
               <span className="hidden sm:block">Comment</span>
             </button>
-            <ShareModal id={post._id} />
           </div>
         </CardFooter>
       </Card>
-      <PostDetailsModal
-        closeModal={closeModal}
-        isModalOpen={isModalOpen}
-        post={post}
-      />
+
+      <PostDetailsModal post={post} isModalOpen={isModalOpen} closeModal={closeModal} />
       <EditPostModal
-        closeModal={closeEditModal}
-        isModalOpen={isEditModalOpen}
         post={post}
+        isModalOpen={isEditModalOpen}
+        closeModal={closeEditModal}
       />
-      <Alert
-        confirmHandler={handleDeletePost}
-        setVisible={setVisible}
-        visible={visible}
-      />
-    </>
+    </div>
   );
 }

@@ -98,7 +98,7 @@ export default function MyProfileHeader() {
       const toastId = toast.loading("Profile Picture is Updating..");
 
       formData.append("avatar", profilePicFile);
-      await updateProfile(formData);
+      const result = await updateProfile(formData);
       toast.dismiss(toastId);
     }
   };

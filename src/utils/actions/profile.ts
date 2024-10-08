@@ -70,7 +70,7 @@ export async function getUsersPosts(id: string) {
 
 export async function getMe() {
   try {
-    const token = cookies().get("session")?.value;
+    const token = cookies().get("accessToken")?.value;
     const res = await fetch(`${siteConfig.host}/api/users/me`, {
       headers: {
         "Content-Type": "application/json",
