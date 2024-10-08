@@ -1,4 +1,4 @@
-import ManagePostsTable from "@/components/dashboard/posts/manage-posts-table";
+import ManagePaymentsTable from "@/components/dashboard/payments/manage-payment-table";
 
 export default function ManageUsers() {
     return (
@@ -8,7 +8,7 @@ export default function ManageUsers() {
                     Manage Payment
                 </h2>
             </div>
-            <ManagePostsTable/>
+            <ManagePaymentsTable/>
         </div>
     );
 }

@@ -67,6 +67,10 @@ const ManageUsersTable: FC = () => {
             name: "searchTerm",
             value: search,
         },
+        {
+            name: "role",
+            value: 'user',
+        },
     ]);
 
     useEffect(() => {

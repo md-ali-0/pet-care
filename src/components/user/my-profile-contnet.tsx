@@ -1,6 +1,3 @@
-/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-
 "use client";
 
 import { Card, CardHeader } from "@nextui-org/card";
@@ -16,6 +13,7 @@ import PostsSection from "../profile/posts-section";
 
 import { TPost } from "@/types";
 import { TUser } from "@/types/TUser";
+import PDFModal from "../pdf/pdf-modal";
 
 export default function MyProfileContnet({
   userPosts, profileData
@@ -24,7 +22,7 @@ export default function MyProfileContnet({
 }) {
 
   const [activeTab, setActiveTab] = useState("Feed");
-
+  const [modalOpen, setModalOpen] = useState(false)
   return (
     <>
       <div className="mt-4">
@@ -78,6 +76,15 @@ export default function MyProfileContnet({
             onClick={() => setActiveTab("EditProfile")}
           >
             Edit Profile
+          </li>
+          <li
+            className={`"px-3 py-2.5 cursor-pointer ${
+              activeTab === "EditProfile" &&
+              "border-b-2 border-blue-500 text-blue-500"
+            }`}
+            onClick={() => setModalOpen(true)}
+          >
+            Nutrition For Pet
           </li>
         </ul>
       </div>
@@ -144,6 +151,7 @@ export default function MyProfileContnet({
           {activeTab === "EditProfile" && <EditProfile user={profileData} />}
         </div>
       </div>
+      <PDFModal isOpen={modalOpen} onOpenChange={setModalOpen}/>
     </>
   );
 }
