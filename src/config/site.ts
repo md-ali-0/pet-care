@@ -2,7 +2,7 @@ export type SiteConfig = typeof siteConfig;
 
 export const siteConfig = {
   name: "Pet Care",
-  description: "Share Pet Tips and Stories",
+  description: "The ultimate destination for pet lovers",
   navItems: [
     {
       label: "Home",
