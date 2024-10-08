@@ -14,20 +14,14 @@ import FollowersSection from "../profile/followers-section";
 import FollowingSection from "../profile/following-section";
 import PostsSection from "../profile/posts-section";
 
-import { useGetMeQuery } from "@/redux/features/user/userApi";
 import { TPost } from "@/types";
 import { TUser } from "@/types/TUser";
 
 export default function MyProfileContnet({
-  userPosts,
+  userPosts, profileData
 }: {
-  userPosts: TPost[];
+  userPosts: TPost[], profileData: TUser
 }) {
-  const { data: user, isLoading } = useGetMeQuery(undefined);
-
-  if (isLoading) {
-    <p>loading..</p>;
-  }
 
   const [activeTab, setActiveTab] = useState("Feed");
 
@@ -61,7 +55,7 @@ export default function MyProfileContnet({
           >
             Followers
             <span className="bg-gray-200 text-gray-600 px-2 py-1 rounded-full text-xs">
-              {user?.followers?.length}
+              {profileData?.followers?.length}
             </span>
           </li>
           <li
@@ -73,7 +67,7 @@ export default function MyProfileContnet({
           >
             Following
             <span className="bg-gray-200 text-gray-600 px-2 py-1 rounded-full text-xs">
-              {user?.following?.length}
+              {profileData?.following?.length}
             </span>
           </li>
           <li
@@ -94,23 +88,23 @@ export default function MyProfileContnet({
               <h2 className="text-xl font-semibold">About</h2>
             </CardHeader>
             <div className="p-4">
-              <p className="text-gray-600 mb-4">{user?.bio || "N/A"}</p>
+              <p className="text-gray-600 mb-4">{profileData?.bio || "N/A"}</p>
               <p className="flex items-center text-gray-600 gap-2 mb-1">
                 <LuCake className="inline" size={18} />
                 <strong>Born:</strong>
-                {user?.birthdate
-                  ? new Date(user?.birthdate).toLocaleDateString()
+                {profileData?.birthdate
+                  ? new Date(profileData?.birthdate).toLocaleDateString()
                   : "N/A"}
               </p>
               <p className="flex items-center text-gray-600 gap-2 mb-1">
                 <LuPhoneCall className="inline" size={18} />
                 <strong>Phone:</strong>
-                {user?.phone}
+                {profileData?.phone}
               </p>
               <p className="flex items-center text-gray-600 gap-2 mb-1">
                 <LuMail className="inline" size={18} />
                 <strong>Email:</strong>
-                {user?.email}
+                {profileData?.email}
               </p>
             </div>
           </Card>
@@ -139,15 +133,15 @@ export default function MyProfileContnet({
         <div className="col-span-12 md:col-span-8">
           {activeTab === "Feed" && <PostsSection userPosts={userPosts} />}
           {activeTab === "About" && (
-            <AboutSection profileData={user as TUser} />
+            <AboutSection profileData={profileData} />
           )}
           {activeTab === "Followers" && (
-            <FollowersSection profileData={user as TUser} />
+            <FollowersSection profileData={profileData} />
           )}
           {activeTab === "Following" && (
-            <FollowingSection profileData={user as TUser} />
+            <FollowingSection profileData={profileData} />
           )}
-          {activeTab === "EditProfile" && <EditProfile user={user as TUser} />}
+          {activeTab === "EditProfile" && <EditProfile user={profileData} />}
         </div>
       </div>
     </>

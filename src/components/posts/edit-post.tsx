@@ -20,6 +20,7 @@ import { toast } from "sonner";
 import { Radio, RadioGroup } from "@nextui-org/radio";
 
 import { ErrorResponse, TPost } from "@/types";
+import Image from "next/image";
 
 export default function EditPostModal({
   post,
@@ -156,10 +157,12 @@ export default function EditPostModal({
             <div className="grid grid-cols-4 gap-2 mt-4">
               {existingImages.map((src, idx) => (
                 <div key={idx} className="relative">
-                  <img
+                  <Image
                     alt="Preview"
                     className="size-28 rounded-xl object-cover"
                     src={src}
+                    width={112}
+                    height={112}
                   />
                   <button
                     className="absolute top-1 right-3 bg-default-500 text-white rounded-full p-0.5"
@@ -171,10 +174,12 @@ export default function EditPostModal({
               ))}
               {imagePreviews.map((src, idx) => (
                 <div key={idx} className="relative">
-                  <img
+                  <Image
                     alt="Preview"
                     className="size-28 rounded-xl object-cover"
                     src={src}
+                    width={112}
+                    height={112}
                   />
                   <button
                     className="absolute top-1 right-3 bg-default-500 text-white rounded-full p-0.5"

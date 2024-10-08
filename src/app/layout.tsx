@@ -45,7 +45,7 @@ export default function RootLayout({
         <Providers
           themeProps={{
             attribute: "class",
-            defaultTheme: "dark",
+            defaultTheme: "light",
           }}
         >
           <SessionProvider>

@@ -119,7 +119,7 @@ export default function MyProfileHeader() {
   useEffect(() => {
     setProfilePic(user?.avatar);
     setCoverPhoto(user?.cover);
-  }, [isLoading]);
+  }, [isLoading, user?.avatar, user?.cover]);
 
   if (isLoading) {
     return (

@@ -1,3 +1,5 @@
+'use client'
+
 import { Button } from "@nextui-org/button";
 import { Input } from "@nextui-org/input";
 import { Modal, ModalBody, ModalContent, ModalHeader } from "@nextui-org/modal";

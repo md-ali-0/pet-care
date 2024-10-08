@@ -5,7 +5,7 @@ import { Button } from "@nextui-org/button";
 import { Checkbox } from "@nextui-org/checkbox";
 import { Input } from "@nextui-org/input";
 import { Link } from "@nextui-org/link";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
@@ -22,8 +22,6 @@ interface FormValues {
 }
 
 export default function SigninForm() {
-  const searchParams = useSearchParams();
-  const redirect = searchParams.get("redirect");
   const router = useRouter();
 
   const {
@@ -51,11 +49,7 @@ export default function SigninForm() {
 
     if (response.success) {
       toast.success("User Sign In Successfully");
-      if (redirect) {
-        router.replace(redirect);
-      } else {
-        router.replace("/");
-      }
+      router.push("/");
     } else {
       toast.error(response?.errors);
     }

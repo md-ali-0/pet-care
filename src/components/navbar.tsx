@@ -1,5 +1,6 @@
 "use client";
 
+import logo from '@/assets/logo/logo.png';
 import { Link } from "@nextui-org/link";
 import {
   NavbarBrand,
@@ -10,12 +11,11 @@ import {
   NavbarMenuToggle,
   Navbar as NextUINavbar,
 } from "@nextui-org/navbar";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { AiOutlineHome, AiOutlineSetting, AiOutlineUser } from "react-icons/ai";
 import { FiActivity, FiLogOut } from "react-icons/fi";
 import { LuPlay } from "react-icons/lu";
-
-import { Logo } from "./icons";
 import NavbarAuth from "./navbar-auth";
 import { ThemeSwitch } from "./theme-switch";
 
@@ -43,8 +43,7 @@ export default function Navbar() {
         <NavbarMenuToggle className="sm:hidden" />
         <NavbarBrand>
           <Link className="flex items-center gap-1" href="/">
-            <Logo />
-            <p className="font-bold text-inherit">ACME</p>
+            <Image alt="logo" className='w-32' src={logo} width={500} height={250}/>
           </Link>
         </NavbarBrand>
       </NavbarContent>
