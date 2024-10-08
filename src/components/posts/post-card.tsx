@@ -29,6 +29,7 @@ import {
   useUpvoteMutation,
 } from "@/redux/features/vote/voteApi";
 import { ErrorResponse, TPost } from "@/types";
+import Alert from "../ui/alert";
 
 export default function PostCard({ post }: { post: TPost }) {
   const {data: userData} = useGetMeQuery(undefined)
@@ -82,9 +83,6 @@ export default function PostCard({ post }: { post: TPost }) {
   const handledownvote = async () => {
     await downvote({ post: post._id });
   };
-
-  console.log(userData);
-  
 
   return (
     <div className="relative">
@@ -144,7 +142,7 @@ export default function PostCard({ post }: { post: TPost }) {
                     key="delete"
                     className="py-1 px-2 text-danger"
                     color="danger"
-                    onClick={handleDeletePost}
+                    onClick={()=>setVisible(true)}
                   >
                     Delete
                   </DropdownItem>
@@ -257,6 +255,7 @@ export default function PostCard({ post }: { post: TPost }) {
         isModalOpen={isEditModalOpen}
         closeModal={closeEditModal}
       />
+      <Alert visible={visible} setVisible={setVisible} confirmHandler={handleDeletePost}/>
     </div>
   );
 }

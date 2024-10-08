@@ -200,7 +200,7 @@ export default function CreatePost() {
                       <Radio value="Story">Story</Radio>
                     </RadioGroup>
                     {
-                      userData && userData ? <Checkbox
+                      userData && userData?.isPremium ? <Checkbox
                       isSelected={isPremium}
                       radius="full"
                       size="sm"

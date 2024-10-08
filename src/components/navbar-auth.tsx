@@ -29,7 +29,7 @@ export default function NavbarAuth() {
             setIsLoading(false);
 
             toast.success("Logout Successfully");
-            dispatch(baseApi.util.invalidateTags(['userData']))
+            dispatch(baseApi.util.invalidateTags(["userData"]));
             router.replace("/auth/signin");
         } catch (error) {
             throw error;
@@ -56,14 +56,16 @@ export default function NavbarAuth() {
                             <p className="font-semibold">Signed in as</p>
                             <p className="font-semibold">{session?.email}</p>
                         </DropdownItem>
-                        <DropdownItem
-                            key="settings"
-                            as={Link}
-                            href="/user/profile"
-                        >
-                            My Profile
-                        </DropdownItem>
+
                         {session?.role === "admin" ? (
+                            <DropdownItem
+                                key="settings"
+                                as={Link}
+                                href="/dashboard"
+                            >
+                                Dashboard
+                            </DropdownItem>
+                        ) : (
                             <DropdownItem
                                 key="settings"
                                 as={Link}
@@ -71,7 +73,7 @@ export default function NavbarAuth() {
                             >
                                 My Profile
                             </DropdownItem>
-                        ) : <DropdownItem/>}
+                        )}
                         <DropdownItem
                             key="logout"
                             color="danger"

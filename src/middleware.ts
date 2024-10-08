@@ -7,7 +7,7 @@ import { TSession } from "@/types";
 
 const roleBasedAccess: { [key: string]: string[] } = {
   "/dashboard": ["admin"],
-  "/user": ["user"],
+  "/user": ["user", "admin"],
 };
 
 export async function middleware(req: NextRequest) {
@@ -21,6 +21,7 @@ export async function middleware(req: NextRequest) {
     phone: null,
     avatar: null,
     isAuth: false,
+    isPremium: false,
     user: null,
     role: "guest",
     status: "guest",

@@ -11,11 +11,12 @@ import {
   NavbarMenuToggle,
   Navbar as NextUINavbar,
 } from "@nextui-org/navbar";
+import { LucideSquareUser } from 'lucide-react';
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { AiOutlineHome, AiOutlineSetting, AiOutlineUser } from "react-icons/ai";
 import { FiActivity, FiLogOut } from "react-icons/fi";
-import { LuPlay } from "react-icons/lu";
+import { LuBook } from "react-icons/lu";
 import NavbarAuth from "./navbar-auth";
 import { ThemeSwitch } from "./theme-switch";
 
@@ -23,9 +24,9 @@ export default function Navbar() {
   const pathname = usePathname();
   const menuItems = [
     { name: "Feed", icon: AiOutlineHome, path: "/" },
-    { name: "Tips", icon: FiActivity, path: "/?category=Tip" },
-    { name: "Stories", icon: LuPlay, path: "/?category=Story" },
     { name: "Profile", icon: AiOutlineUser, path: "/user/profile" },
+    { name: "About us", icon: LuBook, path: "/about-us" },
+    { name: "Contact Us", icon: LucideSquareUser, path: "/contact-us" },
   ];
 
   const mobileMenuItems = [

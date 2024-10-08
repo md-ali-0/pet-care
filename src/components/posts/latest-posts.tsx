@@ -23,6 +23,10 @@ export default function LatestPosts({ search , category }: { search: string | un
       name: "searchTerm",
       value: search,
     },
+    {
+      name: "status",
+      value: 'publish',
+    },
   ]);
 
   useEffect(() => {

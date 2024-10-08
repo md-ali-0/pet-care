@@ -14,6 +14,7 @@ export interface TPost {
     downvotes: number;
   };
   commentCount: number;
+  status: "" | 'publish' | 'unpublish'
   createdAt: Date;
   updatedAt: Date;
 }

@@ -1,3 +1,58 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+
+    .navbar-active .hamburger div:first-child {
+        @apply rotate-45 translate-y-1.5;
+    }
+
+    .navbar-active .hamburger div:last-child {
+        @apply -rotate-45 -translate-y-1;
+    }
+
+    .navbar-active div:first-child div:first-child div:last-child {
+        @apply block lg:flex;
+    }
+
+    .sideLink {
+        @apply flex items-center gap-2 hover:no-underline text-neutral-400 py-2 px-1.5;
+    }
+
+    .sideLinkActive {
+        @apply flex items-center gap-2 hover:no-underline bg-gray-800 dark:bg-default-300 rounded text-white py-2 px-1.5;
+    }
+
+    .dropdownSideBar {
+        @apply relative flex items-center gap-2 hover:no-underline rounded text-neutral-400 py-2 px-1.5 w-full;
+    }
+}
+
+@layer utilities {
+    .nav-link {
+        @apply relative pb-1 block font-medium text-[15px];
+    }
+
+    .nav-link::after {
+        content: "";
+        @apply absolute w-0 h-[2px] bottom-0 left-0 bg-primary duration-300 ease-in-out;
+    }
+
+    .nav-link:hover::after,
+    .nav-link.active::after {
+        @apply w-8 sm:w-[70%];
+    }
+
+    .custom-scroll {
+        @apply overflow-x-hidden scroll-smooth;
+    }
+
+    .custom-scroll::-webkit-scrollbar {
+        @apply w-2;
+    }
+
+    .custom-scroll::-webkit-scrollbar-thumb {
+        @apply bg-[#3c485a] rounded-xl border border-[#3c485a] shadow-inner transition-all duration-150 ease-in-out;
+    }
+}
