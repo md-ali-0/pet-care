@@ -26,7 +26,7 @@ export default function MyProfileContnet({
   return (
     <>
       <div className="mt-4">
-        <ul className="flex space-x-4 border-b">
+        <ul className="flex flex-wrap md:space-x-4 border-b gap-3.5">
           <li
             className={`"px-3 py-2.5 cursor-pointer ${
               activeTab === "Feed" && "border-b-2 border-blue-500 text-blue-500"

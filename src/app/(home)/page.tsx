@@ -18,8 +18,8 @@ import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
 export default function Home() {
-    const [search, setSearch] = useState<string | undefined>(undefined);
-    const [category, setCaregory] = useState<string | undefined>(undefined);
+    const [search, setSearch] = useState<string | undefined>("");
+    const [category, setCaregory] = useState<string | undefined>("");
 
     const { session, setIsLoading } = useSession();
     const dispatch = useAppDispatch();
@@ -69,8 +69,8 @@ export default function Home() {
                             color="danger"
                             variant="flat"
                             onClick={() => {
-                                setSearch(undefined);
-                                setCaregory(undefined);
+                                setSearch("");
+                                setCaregory("");
                             }}
                         >
                             Clear

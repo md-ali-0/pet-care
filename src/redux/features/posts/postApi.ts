@@ -20,7 +20,7 @@ const postApi = baseApi.injectEndpoints({
 
         if (args) {
           args.forEach((item: TQueryParam) => {
-            if (item.value !== undefined) {
+            if (item.value !== "") {
               params.append(item.name, item.value as string);
             }
           });

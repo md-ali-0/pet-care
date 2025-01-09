@@ -29,6 +29,7 @@ import {
   useUpvoteMutation,
 } from "@/redux/features/vote/voteApi";
 import { ErrorResponse, TPost } from "@/types";
+import { Link } from "@nextui-org/link";
 import Alert from "../ui/alert";
 
 export default function PostCard({ post }: { post: TPost }) {
@@ -88,7 +89,7 @@ export default function PostCard({ post }: { post: TPost }) {
     <div className="relative">
       {/* If the post is premium, apply blur effect */}
       {!userData?.isPremium  && post.isPremium ? (
-        <div className="absolute inset-0 bg-black rounded-xl bg-opacity-50 flex items-center justify-center z-10">
+        <div className="absolute inset-0 bg-default-500/50 rounded-xl bg-opacity-50 flex items-center justify-center z-10">
           <div className="text-center text-white space-y-2">
             <p className="text-xl">This post is for Premium members only.</p>
             <button className="px-4 py-2 bg-yellow-500 text-white rounded-lg hover:bg-yellow-600">
@@ -110,9 +111,9 @@ export default function PostCard({ post }: { post: TPost }) {
             />
             <div className="flex-1">
               <div className="flex items-center">
-                <h2 className="font-semibold text-base md:text-lg">
+                <Link href={`/profile?id=${post?.author?._id}`} className="font-semibold text-base md:text-lg">
                   {post?.author?.name}
-                </h2>
+                </Link>
               </div>
               <p className="text-default-500 text-sm">
                 {formatDistanceToNow(new Date(post?.createdAt), {

@@ -16,36 +16,45 @@ export default function LatestPosts({
     search: string | undefined;
     category: string | undefined;
 }) {
-    const [page, setPage] = useState(1); // Page state
-    const [limit] = useState(2); // Limit for how many posts to fetch per page
+    const [page, setPage] = useState(1);
+    const [limit] = useState(2);
     const [posts, setPosts] = useState<any[]>([]);
-    const [hasMore, setHasMore] = useState(true); // State to track if more posts are available
+    const [hasMore, setHasMore] = useState(true);
+    const [forceReset, setForceReset] = useState(false);
 
     const { ref, inView } = useInView();
 
-    // API Query hook
+    const searchTerm = search ? search : "";
+    const categoryTerm = category ? category : "";
+
     const { data, isSuccess, isError, error, isFetching } = useGetAllPostsQuery(
         [
             { name: "sort", value: "-createdAt" },
-            { name: "category", value: category },
-            { name: "searchTerm", value: search },
+            { name: "category", value: categoryTerm },
+            { name: "searchTerm", value: searchTerm },
             { name: "status", value: "publish" },
             { name: "page", value: page },
             { name: "limit", value: limit },
         ]
     );
 
-    // Handle success response and append data
     useEffect(() => {
-        if (isSuccess && data?.data?.length! > 0) {
-            setPosts((prevPosts) => [...prevPosts, ...data?.data!]); // Append new posts
-        } else if (isSuccess && data?.data?.length === 0) {
-            // If no data is returned, set hasMore to false
+        setPage(1);
+        setPosts([]);
+        setHasMore(true);
+    }, [search, category]);
+
+    useEffect(() => {
+        if (isSuccess && page === 1) {
+            setPosts(data?.data!);
+        } else if (isSuccess && data?.data?.length! > 0) {
+            setPosts((prevPosts) => [...prevPosts, ...data?.data!]);
+            setHasMore(data?.data?.length === limit);
+        } else if (isSuccess && data?.data?.length === 0 && page > 1) {
             setHasMore(false);
         }
-    }, [isSuccess, data]);
+    }, [isSuccess, data, page, limit]);
 
-    // Handle error response
     useEffect(() => {
         if (isError) {
             const errorResponse = error as ErrorResponse | SerializedError;
@@ -56,22 +65,19 @@ export default function LatestPosts({
         }
     }, [isError, error]);
 
-    // Trigger loading more data when inView becomes true
     useEffect(() => {
         if (inView && !isFetching && hasMore) {
-            setPage((prevPage) => prevPage + 1); // Increment the page to load more
+            setPage((prevPage) => prevPage + 1);
         }
     }, [inView, isFetching, hasMore]);
 
-    // Reset posts and page when search or category changes or is cleared
     useEffect(() => {
-        setPage(1); // Reset to first page
-        setPosts([]); // Clear the posts list
-        setHasMore(true); // Reset hasMore state for fresh search or category change
-    }, [search, category]);
+        if (forceReset) {
+            setForceReset(false);
+        }
+    }, [forceReset]);
 
-    // Display message if no results are found
-    if (isSuccess && data?.data?.length === 0) {
+    if (isSuccess && page === 1 && posts.length === 0) {
         return <p className="text-center py-5">No posts found</p>;
     }
 
@@ -81,7 +87,6 @@ export default function LatestPosts({
                 <PostCard key={post._id} post={post} />
             ))}
 
-            {/* Ref to track when user reaches the end */}
             <div ref={ref}>
                 {isFetching && (
                     <div className="flex items-center justify-center space-x-2">
@@ -92,9 +97,8 @@ export default function LatestPosts({
                     </div>
                 )}
 
-                {/* Show message when no more posts are available */}
                 {!hasMore && !isFetching && (
-                    <p className="text-center text-sm text-gray-500">
+                    <p className="text-nter text-sm text-gray-500ce">
                         No more posts to load.
                     </p>
                 )}
