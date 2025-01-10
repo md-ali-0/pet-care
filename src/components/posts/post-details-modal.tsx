@@ -21,7 +21,7 @@ import { SerializedError } from "@reduxjs/toolkit";
 import { formatDistanceToNow } from "date-fns";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import { LuMoreHorizontal, LuSend, LuSendHorizonal } from "react-icons/lu";
+import { LuSend } from "react-icons/lu";
 import { toast } from "sonner";
 
 import { useSession } from "@/provider/session-provider";
@@ -32,6 +32,7 @@ import {
   useUpdateCommentMutation,
 } from "@/redux/features/comment/commentApi";
 import { ErrorResponse, TComment, TPost } from "@/types";
+import { MoreHorizontal, SendHorizonal } from "lucide-react";
 
 interface PostDetailsModalProps {
   isModalOpen: boolean;
@@ -247,7 +248,7 @@ export default function PostDetailsModal({
                     <Dropdown>
                       <DropdownTrigger>
                         <button className="p-1">
-                          <LuMoreHorizontal
+                          <MoreHorizontal
                             className="cursor-pointer"
                             size={16} // Reduced icon size
                           />
@@ -309,7 +310,7 @@ export default function PostDetailsModal({
                 }}
               />
               <Button isIconOnly color="primary" size="lg" onClick={onSubmit}>
-                {editingCommentId ? <LuSend /> : <LuSendHorizonal />}{" "}
+                {editingCommentId ? <LuSend /> : <SendHorizonal />}{" "}
                 {/* Show 'Update' if editing */}
               </Button>
             </div>

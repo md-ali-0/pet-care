@@ -11,10 +11,8 @@ import PostCard from "./post-card";
 
 export default function LatestPosts({
     search,
-    category,
 }: {
     search: string | undefined;
-    category: string | undefined;
 }) {
     const [page, setPage] = useState(1);
     const [limit] = useState(2);
@@ -25,12 +23,10 @@ export default function LatestPosts({
     const { ref, inView } = useInView();
 
     const searchTerm = search ? search : "";
-    const categoryTerm = category ? category : "";
 
     const { data, isSuccess, isError, error, isFetching } = useGetAllPostsQuery(
         [
             { name: "sort", value: "-createdAt" },
-            { name: "category", value: categoryTerm },
             { name: "searchTerm", value: searchTerm },
             { name: "status", value: "publish" },
             { name: "page", value: page },
@@ -42,7 +38,7 @@ export default function LatestPosts({
         setPage(1);
         setPosts([]);
         setHasMore(true);
-    }, [search, category]);
+    }, [search]);
 
     useEffect(() => {
         if (isSuccess && page === 1) {

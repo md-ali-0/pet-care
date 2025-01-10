@@ -14,7 +14,7 @@ import { formatDistanceToNow } from "date-fns";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { FaComment, FaThumbsDown, FaThumbsUp } from "react-icons/fa";
-import { LuMoreHorizontal } from "react-icons/lu";
+
 import { toast } from "sonner";
 
 
@@ -30,6 +30,7 @@ import {
 } from "@/redux/features/vote/voteApi";
 import { ErrorResponse, TPost } from "@/types";
 import { Link } from "@nextui-org/link";
+import { MoreHorizontal } from "lucide-react";
 import Alert from "../ui/alert";
 
 export default function PostCard({ post }: { post: TPost }) {
@@ -125,7 +126,7 @@ export default function PostCard({ post }: { post: TPost }) {
               <Dropdown>
                 <DropdownTrigger>
                   <button className="p-1">
-                    <LuMoreHorizontal
+                    <MoreHorizontal
                       className="text-default-500"
                       size={25} // Reduced icon size
                     />

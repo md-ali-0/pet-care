@@ -11,12 +11,11 @@ import {
   NavbarMenuToggle,
   Navbar as NextUINavbar,
 } from "@nextui-org/navbar";
-import { LucideSquareUser } from 'lucide-react';
+import { Settings, Users } from 'lucide-react';
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { AiOutlineHome, AiOutlineSetting, AiOutlineUser } from "react-icons/ai";
-import { FiActivity, FiLogOut } from "react-icons/fi";
-import { LuBook } from "react-icons/lu";
+import { AiOutlineHome, AiOutlineUser } from "react-icons/ai";
+import { FiLogOut } from "react-icons/fi";
 import NavbarAuth from "./navbar-auth";
 import { ThemeSwitch } from "./theme-switch";
 
@@ -25,15 +24,17 @@ export default function Navbar() {
   const menuItems = [
     { name: "Feed", icon: AiOutlineHome, path: "/" },
     { name: "Profile", icon: AiOutlineUser, path: "/user/profile" },
-    { name: "About us", icon: LuBook, path: "/about-us" },
-    { name: "Contact Us", icon: LucideSquareUser, path: "/contact-us" },
+    { name: "Followers", icon: Users, path: "/user/profile?active=Followers" },
+    { name: "Following", icon: Users, path: "/user/profile?active=Following" },
+    { name: "Settings", icon: Settings, path: "/user/profile?active=EditProfile" },
   ];
 
   const mobileMenuItems = [
-    { name: "Home", icon: AiOutlineHome, path: "/" },
+    { name: "Feed", icon: AiOutlineHome, path: "/" },
     { name: "Profile", icon: AiOutlineUser, path: "/user/profile" },
-    { name: "Activity", icon: FiActivity, path: "/activity" },
-    { name: "Settings", icon: AiOutlineSetting, path: "/settings" },
+    { name: "Followers", icon: Users, path: "/user/profile?active=Followers" },
+    { name: "Following", icon: Users, path: "/user/profile?active=Following" },
+    { name: "Settings", icon: Settings, path: "/user/profile?active=EditProfile" },
     { name: "Log Out", icon: FiLogOut, path: "/logout" },
   ];
 

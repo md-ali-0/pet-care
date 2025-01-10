@@ -2,7 +2,7 @@
 
 import { Card, CardHeader } from "@nextui-org/card";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { LuCake, LuMail, LuPhoneCall } from "react-icons/lu";
 
 import AboutSection from "../profile/about-section";
@@ -13,145 +13,169 @@ import PostsSection from "../profile/posts-section";
 
 import { TPost } from "@/types";
 import { TUser } from "@/types/TUser";
+import { useSearchParams } from "next/navigation";
 import PDFModal from "../pdf/pdf-modal";
 
 export default function MyProfileContnet({
-  userPosts, profileData
+    userPosts,
+    profileData,
 }: {
-  userPosts: TPost[], profileData: TUser
+    userPosts: TPost[];
+    profileData: TUser;
 }) {
+    const searchParams = useSearchParams();
+    const queryTab = searchParams.get("active");
+    const [activeTab, setActiveTab] = useState("Feed");
 
-  const [activeTab, setActiveTab] = useState("Feed");
-  const [modalOpen, setModalOpen] = useState(false)
-  return (
-    <>
-      <div className="mt-4">
-        <ul className="flex flex-wrap md:space-x-4 border-b gap-3.5">
-          <li
-            className={`"px-3 py-2.5 cursor-pointer ${
-              activeTab === "Feed" && "border-b-2 border-blue-500 text-blue-500"
-            }`}
-            onClick={() => setActiveTab("Feed")}
-          >
-            Feed
-          </li>
-          <li
-            className={`"px-3 py-2.5 cursor-pointer ${
-              activeTab === "About" &&
-              "border-b-2 border-blue-500 text-blue-500"
-            }`}
-            onClick={() => setActiveTab("About")}
-          >
-            About
-          </li>
-          <li
-            className={`"px-3 py-2.5 cursor-pointer ${
-              activeTab === "Followers" &&
-              "border-b-2 border-blue-500 text-blue-500"
-            }`}
-            onClick={() => setActiveTab("Followers")}
-          >
-            Followers
-            <span className="bg-gray-200 text-gray-600 px-2 py-1 rounded-full text-xs">
-              {profileData?.followers?.length}
-            </span>
-          </li>
-          <li
-            className={`"px-3 py-2.5 cursor-pointer ${
-              activeTab === "Following" &&
-              "border-b-2 border-blue-500 text-blue-500"
-            }`}
-            onClick={() => setActiveTab("Following")}
-          >
-            Following
-            <span className="bg-gray-200 text-gray-600 px-2 py-1 rounded-full text-xs">
-              {profileData?.following?.length}
-            </span>
-          </li>
-          <li
-            className={`"px-3 py-2.5 cursor-pointer ${
-              activeTab === "EditProfile" &&
-              "border-b-2 border-blue-500 text-blue-500"
-            }`}
-            onClick={() => setActiveTab("EditProfile")}
-          >
-            Edit Profile
-          </li>
-          <li
-            className={`"px-3 py-2.5 cursor-pointer ${
-              activeTab === "EditProfile" &&
-              "border-b-2 border-blue-500 text-blue-500"
-            }`}
-            onClick={() => setModalOpen(true)}
-          >
-            Nutrition For Pet
-          </li>
-        </ul>
-      </div>
-      <div className="grid grid-cols-12 mt-6 gap-5">
-        <div className="col-span-12 md:col-span-4 space-y-6">
-          <Card>
-            <CardHeader>
-              <h2 className="text-xl font-semibold">About</h2>
-            </CardHeader>
-            <div className="p-4">
-              <p className="text-gray-600 mb-4">{profileData?.bio || "N/A"}</p>
-              <p className="flex items-center text-gray-600 gap-2 mb-1">
-                <LuCake className="inline" size={18} />
-                <strong>Born:</strong>
-                {profileData?.birthdate
-                  ? new Date(profileData?.birthdate).toLocaleDateString()
-                  : "N/A"}
-              </p>
-              <p className="flex items-center text-gray-600 gap-2 mb-1">
-                <LuPhoneCall className="inline" size={18} />
-                <strong>Phone:</strong>
-                {profileData?.phone}
-              </p>
-              <p className="flex items-center text-gray-600 gap-2 mb-1">
-                <LuMail className="inline" size={18} />
-                <strong>Email:</strong>
-                {profileData?.email}
-              </p>
+    useEffect(() => {
+        // If `tab` exists in the query string, set it as the active tab
+        if (
+            queryTab &&
+            ["Feed", "About", "Followers", "Following", "EditProfile"].includes(queryTab)
+        ) {
+            setActiveTab(queryTab);
+        }
+    }, [queryTab]);
+
+    const [modalOpen, setModalOpen] = useState(false);
+    return (
+        <>
+            <div className="mt-4">
+                <ul className="flex flex-wrap md:space-x-4 border-b gap-3.5">
+                    <li
+                        className={`"px-3 py-2.5 cursor-pointer ${
+                            activeTab === "Feed" &&
+                            "border-b-2 border-blue-500 text-blue-500"
+                        }`}
+                        onClick={() => setActiveTab("Feed")}
+                    >
+                        Feed
+                    </li>
+                    <li
+                        className={`"px-3 py-2.5 cursor-pointer ${
+                            activeTab === "About" &&
+                            "border-b-2 border-blue-500 text-blue-500"
+                        }`}
+                        onClick={() => setActiveTab("About")}
+                    >
+                        About
+                    </li>
+                    <li
+                        className={`"px-3 py-2.5 cursor-pointer ${
+                            activeTab === "Followers" &&
+                            "border-b-2 border-blue-500 text-blue-500"
+                        }`}
+                        onClick={() => setActiveTab("Followers")}
+                    >
+                        Followers
+                        <span className="bg-gray-200 text-gray-600 px-2 py-1 rounded-full text-xs">
+                            {profileData?.followers?.length}
+                        </span>
+                    </li>
+                    <li
+                        className={`"px-3 py-2.5 cursor-pointer ${
+                            activeTab === "Following" &&
+                            "border-b-2 border-blue-500 text-blue-500"
+                        }`}
+                        onClick={() => setActiveTab("Following")}
+                    >
+                        Following
+                        <span className="bg-gray-200 text-gray-600 px-2 py-1 rounded-full text-xs">
+                            {profileData?.following?.length}
+                        </span>
+                    </li>
+                    <li
+                        className={`"px-3 py-2.5 cursor-pointer ${
+                            activeTab === "EditProfile" &&
+                            "border-b-2 border-blue-500 text-blue-500"
+                        }`}
+                        onClick={() => setActiveTab("EditProfile")}
+                    >
+                        Edit Profile
+                    </li>
+                    <li
+                        className={`"px-3 py-2.5 cursor-pointer ${
+                            activeTab === "EditProfile" &&
+                            "border-b-2 border-blue-500 text-blue-500"
+                        }`}
+                        onClick={() => setModalOpen(true)}
+                    >
+                        Nutrition For Pet
+                    </li>
+                </ul>
             </div>
-          </Card>
-          <Card>
-            <CardHeader>
-              <h2 className="text-xl font-semibold">Photos</h2>
-            </CardHeader>
-            <div className="flex flex-wrap p-4">
-              {userPosts?.map((post: TPost) => (
-                <div key={post._id} className="flex flex-wrap">
-                  {post.imageUrls?.map((item, idx) => (
-                    <Image
-                      key={idx}
-                      alt=""
-                      className="inline rounded-lg m-2"
-                      height={150}
-                      src={item}
-                      width={150}
-                    />
-                  ))}
+            <div className="grid grid-cols-12 mt-6 gap-5">
+                <div className="col-span-12 md:col-span-4 space-y-6">
+                    <Card>
+                        <CardHeader>
+                            <h2 className="text-xl font-semibold">About</h2>
+                        </CardHeader>
+                        <div className="p-4">
+                            <p className="text-gray-600 mb-4">
+                                {profileData?.bio || "N/A"}
+                            </p>
+                            <p className="flex items-center text-gray-600 gap-2 mb-1">
+                                <LuCake className="inline" size={18} />
+                                <strong>Born:</strong>
+                                {profileData?.birthdate
+                                    ? new Date(
+                                          profileData?.birthdate
+                                      ).toLocaleDateString()
+                                    : "N/A"}
+                            </p>
+                            <p className="flex items-center text-gray-600 gap-2 mb-1">
+                                <LuPhoneCall className="inline" size={18} />
+                                <strong>Phone:</strong>
+                                {profileData?.phone}
+                            </p>
+                            <p className="flex items-center text-gray-600 gap-2 mb-1">
+                                <LuMail className="inline" size={18} />
+                                <strong>Email:</strong>
+                                {profileData?.email}
+                            </p>
+                        </div>
+                    </Card>
+                    <Card>
+                        <CardHeader>
+                            <h2 className="text-xl font-semibold">Photos</h2>
+                        </CardHeader>
+                        <div className="flex flex-wrap p-4">
+                            {userPosts?.map((post: TPost) => (
+                                <div key={post._id} className="flex flex-wrap">
+                                    {post.imageUrls?.map((item, idx) => (
+                                        <Image
+                                            key={idx}
+                                            alt=""
+                                            className="inline rounded-lg m-2"
+                                            height={150}
+                                            src={item}
+                                            width={150}
+                                        />
+                                    ))}
+                                </div>
+                            ))}
+                        </div>
+                    </Card>
                 </div>
-              ))}
+                <div className="col-span-12 md:col-span-8">
+                    {activeTab === "Feed" && (
+                        <PostsSection userPosts={userPosts} />
+                    )}
+                    {activeTab === "About" && (
+                        <AboutSection profileData={profileData} />
+                    )}
+                    {activeTab === "Followers" && (
+                        <FollowersSection profileData={profileData} />
+                    )}
+                    {activeTab === "Following" && (
+                        <FollowingSection profileData={profileData} />
+                    )}
+                    {activeTab === "EditProfile" && (
+                        <EditProfile user={profileData} />
+                    )}
+                </div>
             </div>
-          </Card>
-        </div>
-        <div className="col-span-12 md:col-span-8">
-          {activeTab === "Feed" && <PostsSection userPosts={userPosts} />}
-          {activeTab === "About" && (
-            <AboutSection profileData={profileData} />
-          )}
-          {activeTab === "Followers" && (
-            <FollowersSection profileData={profileData} />
-          )}
-          {activeTab === "Following" && (
-            <FollowingSection profileData={profileData} />
-          )}
-          {activeTab === "EditProfile" && <EditProfile user={profileData} />}
-        </div>
-      </div>
-      <PDFModal isOpen={modalOpen} onOpenChange={setModalOpen}/>
-    </>
-  );
+            <PDFModal isOpen={modalOpen} onOpenChange={setModalOpen} />
+        </>
+    );
 }
