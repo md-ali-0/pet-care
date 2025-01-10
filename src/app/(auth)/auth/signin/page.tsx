@@ -36,17 +36,6 @@ export default function SigninPage() {
                         </p>
                     </div>
                     <LoginPage />
-                    <div className="text-center text-gray-600 mt-4">
-                        <p>
-                            Don&apos;t have an account?{" "}
-                            <a
-                                href="/signup"
-                                className="text-blue-500 hover:underline font-semibold"
-                            >
-                                Sign up now
-                            </a>
-                        </p>
-                    </div>
                 </div>
             </div>
         </div>

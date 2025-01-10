@@ -1,4 +1,5 @@
 import SignupForm from "@/components/auth/signup-form";
+import { Link } from "@nextui-org/link";
 import Image from "next/image";
 
 export default function SignupPage() {
@@ -21,12 +22,12 @@ export default function SignupPage() {
                     <div className="text-center">
                         <p className="text-sm text-gray-600">
                             Already have an account?{" "}
-                            <a
+                            <Link
                                 href="/auth/signin"
-                                className="font-medium text-green-600 hover:text-green-500"
+                                className="font-medium text-blue-600 hover:text-blue-500"
                             >
-                                Log in
-                            </a>
+                                Sign In
+                            </Link>
                         </p>
                     </div>
                 </div>
