@@ -8,17 +8,19 @@ export default function SigninPage() {
             <div className="hidden lg:block lg:w-1/2 relative">
                 <Image
                     src="https://res.cloudinary.com/dy8ef1ngb/image/upload/v1736522854/animal-pet-care-and-training_zsq0cp.webp"
-                    alt="Social Media Background"
+                    alt="Pet Care Social Media Background"
                     layout="fill"
                     objectFit="cover"
                     className="rounded-r-3xl"
                 />
-                <div className="absolute inset-0 bg-gradient-to-br from-blue-600/70 to-blue-500/70 rounded-r-3xl" />
+                <div className="absolute inset-0 bg-gradient-to-br from-green-500/70 to-green-400/70 rounded-r-3xl" />
                 <div className="absolute bottom-10 left-10 text-white">
                     <h2 className="text-4xl font-bold mb-2">
-                        Connect with friends
+                        Welcome to PetConnect
                     </h2>
-                    <p className="text-xl">Share your moments with the world</p>
+                    <p className="text-xl">
+                        Join a community of pet lovers, share moments, and get tips for your furry friends.
+                    </p>
                 </div>
             </div>
 
@@ -27,13 +29,24 @@ export default function SigninPage() {
                 <div className="w-full max-w-md space-y-5 py-5">
                     <div className="text-center">
                         <h1 className="text-4xl font-extrabold text-gray-900 mb-2">
-                            Welcome back
+                            Welcome to PetConnect
                         </h1>
                         <p className="text-gray-600">
-                            Log in to your account to continue
+                            Log in to connect with pet owners, find care tips, and share your pet stories.
                         </p>
                     </div>
                     <LoginPage />
+                    <div className="text-center text-gray-600 mt-4">
+                        <p>
+                            Don&apos;t have an account?{" "}
+                            <a
+                                href="/signup"
+                                className="text-blue-500 hover:underline font-semibold"
+                            >
+                                Sign up now
+                            </a>
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>

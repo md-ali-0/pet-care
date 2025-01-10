@@ -9,10 +9,10 @@ export default function SignupPage() {
                 <div className="w-full max-w-md space-y-8">
                     <div className="text-center">
                         <h1 className="text-4xl font-extrabold text-gray-900 mb-2">
-                            Create an account
+                            Join PetConnect Today
                         </h1>
                         <p className="text-gray-600">
-                            Join our community today
+                            Sign up to connect with pet lovers, share your pet stories, and access valuable care tips.
                         </p>
                     </div>
 
@@ -23,9 +23,9 @@ export default function SignupPage() {
                             Already have an account?{" "}
                             <a
                                 href="/auth/signin"
-                                className="font-medium text-blue-600 hover:text-blue-500"
+                                className="font-medium text-green-600 hover:text-green-500"
                             >
-                                Sign In
+                                Log in
                             </a>
                         </p>
                     </div>
@@ -36,17 +36,19 @@ export default function SignupPage() {
             <div className="hidden lg:block lg:w-1/2 relative">
                 <Image
                     src="https://res.cloudinary.com/dy8ef1ngb/image/upload/v1736522854/animal-pet-care-and-training_zsq0cp.webp"
-                    alt="Social Media Background"
+                    alt="Pet Care Social Media Background"
                     layout="fill"
                     objectFit="cover"
                     className="rounded-l-3xl"
                 />
-                <div className="absolute inset-0 bg-gradient-to-tl from-blue-500/70 to-purple-600/70 rounded-l-3xl" />
+                <div className="absolute inset-0 bg-gradient-to-tl from-green-500/70 to-teal-500/70 rounded-l-3xl" />
                 <div className="absolute top-10 right-10 text-white text-right">
                     <h2 className="text-4xl font-bold mb-2">
-                        Join our community
+                        Join the PetConnect Community
                     </h2>
-                    <p className="text-xl">Share your moments with the world</p>
+                    <p className="text-xl">
+                        Share your pet moments, discover tips, and connect with other pet enthusiasts.
+                    </p>
                 </div>
             </div>
         </div>
